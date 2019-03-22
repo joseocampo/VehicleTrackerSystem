@@ -13,8 +13,8 @@ Moisés Moraga Alfaro.<br>
 Melissa Ureña Rojas.<br>
 
 <hr>
-# Vehicle_Tracker_System_App<br>
-Esta aplicación móvil permite que un funcionario de la municipalidad pueda solicitar un vehículo para uso de trabajo y especificar destino y ruta hacia donde se dirige con el vehículo, también permite registrar averías en caso de que algún vehículo las tenga.
+# VehicleTrackerSystem<br>
+Esta aplicación móvil permite que un funcionario de la municipalidad pueda verificar las rutas que un vehiculo ha tenido en una hora, dia y fecha específica.
 
 ## Información.
 

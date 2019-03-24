@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10/09/2018 04:31:19 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class catalog="tracker_system_db" name="DB_model.TUserInformation" optimistic-lock="version" table="t_user_information">
+        <id name="pkId" type="string">
+            <column length="12" name="PK_Id"/>
+            <generator class="assigned"/>
+        </id>
+        <property name="name" type="string">
+            <column length="20" name="Name" not-null="true"/>
+        </property>
+        <property name="surname" type="string">
+            <column length="20" name="Surname" not-null="true"/>
+        </property>
+        <property name="secondSurname" type="string">
+            <column length="20" name="Second_surname" not-null="true"/>
+        </property>
+        <property name="area" type="string">
+            <column length="25" name="Area" not-null="true"/>
+        </property>
+        <property name="phoneNumber" type="string">
+            <column length="8" name="Phone_number"/>
+        </property>
+        <property name="email" type="string">
+            <column length="20" name="Email"/>
+        </property>
+        <property name="address" type="string">
+            <column length="45" name="Address" not-null="true"/>
+        </property>
+        <property name="vehicle" type="string">
+            <column length="8" name="vehicle" not-null="false"/>
+        </property>
+        <set fetch="select" inverse="true" lazy="true" name="TIncidentses" table="t_incidents">
+            <key>
+                <column length="12" name="FK_User" not-null="true"/>
+            </key>
+            <one-to-many class="DB_model.TIncidents"/>
+        </set>
+        <set fetch="select" inverse="true" lazy="true" name="TRouteses" table="t_routes">
+            <key>
+                <column length="12" name="FK_User" not-null="true"/>
+            </key>
+            <one-to-many class="DB_model.TRoutes"/>
+        </set>
+        <set fetch="select" inverse="true" lazy="true" name="TFailureses" table="t_failures">
+            <key>
+                <column length="12" name="FK_User" not-null="true"/>
+            </key>
+            <one-to-many class="DB_model.TFailures"/>
+        </set>
+    </class>
+</hibernate-mapping>

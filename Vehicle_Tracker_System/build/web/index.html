@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Vehicle Tracker System</title>
+        <link href="css/styles.css" rel="stylesheet" type="text/css"/>
+        <script src="js/searches.js" type="text/javascript"></script>
+        <script src="js/datos.js" type="text/javascript"></script>
+        <script src="js/script.js" type="text/javascript"></script>
+        <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <script src="js/popper.js" type="text/javascript"></script>
+        <script src="js/jquery.js" type="text/javascript"></script>
+        <script src="js/bootstrap.min.js" type="text/javascript"></script>
+
+        <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
+        <script src="js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
+        <link href="css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <header class="banner" role="banner">
+
+            <div style=" background-color: #209DFF; padding:  15px; width: 100%;">
+                <h1 style="margin-left: 10%; font-family: sans-serif;"><i class="fa fa-car" style="font-size:36px"></i>&nbsp;&nbsp;VTS</h1>
+                <h2 style="margin-left: 10%; font-family: sans-serif;">Vehicle Tracker System</h2>
+            </div>
+
+
+        </header>
+        <div class="row" style="margin: 40px 20px 20px 20px;">
+            <div class="col-md-2" style="margin-top: 5%;">
+                <img src="images/logo.png" alt="" height="250" width="250" />
+            </div>
+
+
+            <div class="col-md-3" style="margin-left: 19%;">
+                <form action="javascript: login();" id="formLogin" method="POST" style="align-content: center;  margin-top: 10%;">
+                    <div class="form-group">
+                        <label>Ingreso al sistema</label>
+                        <label style="color: red;" id="error_login_label"></label>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Cédula</label>
+                        <input type="text" class="form-control" name="id_login" id="id_login"  onclick="trying_login();" aria-describedby="idHelp" placeholder="Enter Id">
+
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Contraseña</label>
+                        <input type="password" class="form-control" name="pass_login" id="pass_login" onclick="trying_login();" placeholder="Password">
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                        <label class="form-check-label" for="exampleCheck1">Recuérdame</label>
+
+                    </div>
+                    <br />
+                    <button type="submit" class="btn btn-success ">Iniciar sesión</button>
+
+                </form>
+            </div>
+
+        </div>
+        <footer>
+            <hr />
+            <p class="footer_administrator" style="text-align: center ">Copyright © 2018 - Vehicle Tracker System</p>
+        </footer>
+
+    </body>
+</html>

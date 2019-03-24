@@ -1,0 +1,58 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 10/09/2018, 05:00:51 PM
+    Author     : Jose Ocampo
+*/
+
+.div_banner_home_page{
+    background-color: lightblue;
+    margin: 15px;
+    width: 100%;
+    
+}
+.h1_banner{
+    margin-left: 50%;
+}
+.nav_item_own{
+    color: #999999;
+    background-color: #1d2124;
+    font-family: sans-serif;
+    font-size: 10pt;
+
+}
+.nav_separator{
+    color:  #999999;;
+    background-color: #333333;;
+}
+
+.own_div_cutomize{
+    background-color: black;
+/*    color: #cccccc*/
+    /*    height: 100%;*/
+}
+.administrator_home_footer{
+    background-color: black;
+    height: 100%;
+}
+.nav_title_fonts{
+    font-family: sans-serif;
+    font-size: 12pt;
+    /*color: #999999;*/
+    color: white;
+    background-color: #333333;
+}
+.color_iconos_item{
+    color: white;
+}
+.footer_administrator{
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 12pt;
+}
+.help_cards{
+    padding: 15px;
+}

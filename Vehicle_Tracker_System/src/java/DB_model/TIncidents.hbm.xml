@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10/09/2018 04:31:19 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="tracker_system_db" name="DB_model.TIncidents" optimistic-lock="version" table="t_incidents">
+    <id name="pkDate" type="timestamp">
+      <column length="19" name="PK_Date"/>
+      <generator class="assigned"/>
+    </id>
+    <many-to-one class="DB_model.TUserInformation" fetch="select" name="TUserInformation">
+      <column length="12" name="FK_User" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="DB_model.TVehicle" fetch="select" name="TVehicle">
+      <column length="8" name="FK_Vehicle" not-null="true"/>
+    </many-to-one>
+    <property name="details" type="string">
+      <column length="100" name="Details"/>
+    </property>
+    <property name="cost" type="float">
+      <column name="Cost" not-null="true" precision="12" scale="0"/>
+    </property>
+  </class>
+</hibernate-mapping>

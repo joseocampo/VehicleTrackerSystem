@@ -6,6 +6,63 @@ var middle_points = [];
 //    destination: "Ferretería Brenes"
 //};
 
+
+
+
+
+function initdMap() {
+    //get api uses
+    var directionsService = new google.maps.DirectionsService;
+    var directionsDisplay = new google.maps.DirectionsRenderer;
+    //waypoints to add
+   var intermedios = [{location: {lat: 9.9948033, lng: -84.0982678}, stopover: true},
+    {location: {lat: 9.9930368, lng: -84.1096207}, stopover: true},
+    {location: {lat: 9.9962729, lng: -84.1118117}, stopover: true},
+//    {location: {lat: 10.0002357, lng: -84.1062367}, stopover: true},
+    {location: {lat:10.0009845, lng: -84.1154571}, stopover: true},
+    {location: {lat: 10.0018053, lng: -84.1173553}, stopover: true},
+    {location: {lat: 9.9992132, lng: -84.1170881}, stopover: true},
+    {location: {lat: 9.9951037, lng: -84.1171391}, stopover: true},
+    {location: {lat: 9.9935142, lng: -84.1208358}, stopover: true},
+    {location: {lat: 9.9937611, lng: -84.1313862}, stopover: true},
+    {location: {lat:10.0043801, lng: -84.1521387}, stopover: true}
+
+
+
+];
+
+    //api map
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 6,
+        center: {lat: intermedios[0].location.lat, lng: intermedios[0].location.lng}
+    });
+    //add map
+    directionsDisplay.setMap(map);
+
+    // set the new
+    //new Array(waypts[0].location.lat,waypts[0].location.lng)
+    directionsService.route({
+        origin: {lat: intermedios[0].location.lat, lng: intermedios[0].location.lng}, //db waypoint start
+        destination: {lat: intermedios[intermedios.length-1].location.lat, lng: intermedios[intermedios.length-1].location.lng}, //db waypoint end
+        waypoints: intermedios,
+        optimizeWaypoints: true,
+        travelMode: 'DRIVING'
+    }, function (response, status) {
+        if (status === google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+        } else {
+            window.alert('Ha fallat la comunicació amb el mapa a causa de: ' + status);
+        }
+    });
+}
+
+
+//======================================================
+
+
+
+
+
 function initializeAPIComponents() {//CUANDO SE CARGA EL API, SE LLAMA ESTA FUNCION 
     //LA CUAL AGREGA UN EVENTO AL BOTON VER_RUTAS
     document.getElementById('btVerRutas1').addEventListener('click', showAllRoutes);
@@ -91,7 +148,10 @@ function drawAllRoutes(routesJSON) {
             for (var i = 0; i < routesJson.routes.length; i++) {
                 //AGREGAMOS LAS CALLES A UN ARRAY PARA LUEGO DE CREADAS LAS CARTAS SE DICUJA LA RUTAS CON ESTAS CALLES
                 //CADA ARRAY DE ACLLES PERTENECE A CADA RUTA, EN EL ORDEN EN EL QUE FUERON AGREGADAS AL ARRAY.
+                // if(routesJson.routes[i].streets !=="Unnamed Road, Provincia de Alajuela, Grecia, Costa Rica"){
                 middle_points.push(routesJson.routes[i].streets);
+                //}
+                // middle_points.push(routesJson.routes[i].streets);
 
                 var div_route_card = document.createElement("div");
                 //si queremos ver mas cartas o menos cartas en cada fila del div, debemos cambiar (col-md-6 col-sm-6 col-lg-6)
@@ -129,7 +189,10 @@ function drawAllRoutes(routesJSON) {
                 var footer_text_element = document.createElement("P");
                 footer_text_element.style = "font-family: serif; font-size:12pt; text-align: center;";
                 footer_text_element.setAttribute("class", "card-text");
-                var footer_text = document.createTextNode("Hora y Fecha:  10:5 am.  10/02/2019");
+
+                var footer_text = document.createTextNode(routesJson.routes[i].date + "  " + routesJson.routes[i].endDate +
+                        "  HORA INICIO: " + routesJson.routes[i].beginHour + "  HORA FINAL:  " + routesJson.routes[i].endHour);
+
                 footer_text_element.appendChild(footer_text);
 
                 var card_footer = document.createElement("div");

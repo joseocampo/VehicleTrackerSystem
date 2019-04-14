@@ -442,6 +442,8 @@
                         </div>
                         <div class="row col-md-12 " id="div_all_routes" style=" margin: 12px; height: 500px; overflow: auto; "> 
                         </div>
+                             <div class="row col-md-12 " id="map" style=" margin: 12px; height: 500px; overflow: auto; "> 
+                        </div>
 
                     </div>
                     <%--  EN ESTE DIV SE MUSETRA EL MAPA--%>

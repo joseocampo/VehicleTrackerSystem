@@ -38,12 +38,12 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Cédula</label>
-                        <input type="id" class="form-control" name="id_login" id="id_login" onclick="trying_login();" aria-describedby="idHelp" placeholder="Enter Id">
+                        <input type="id" class="form-control" name="id_login" id="id_login" onclick="trying_login();" aria-describedby="idHelp" placeholder="Ingrese su usuario">
 
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Contraseña</label>
-                        <input type="password" class="form-control" name="pass_login" id="pass_login" onclick="trying_login();"placeholder="Password">
+                        <input type="password" class="form-control" name="pass_login" id="pass_login" onclick="trying_login();"placeholder="Ingrese su contraseña">
                     </div>
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" id="exampleCheck1">

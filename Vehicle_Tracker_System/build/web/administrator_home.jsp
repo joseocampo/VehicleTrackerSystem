@@ -381,42 +381,35 @@
                             <h3 style="color:#999999;">Ver los vehículos disponibles y sus detalles</h3>
                             <hr/>
                         </div>
+                        <div class="col-md-12" style="margin: 15px;">
+                            <form >
+                                <div class="form-row">
+                                    <div class="col">
+
+                                        <input id="" type='' class="form-control" name="" />
+
+                                    </div>
+                                    <div class="col">
+
+                                        <input type="text" class="form-control" onclick="" placeholder="Ingrese placa" id="pk_plate" name="pk_plate">
+                                    </div>
+                                    <div class="col">
+                                        <button class="btn btn-success"onclick="current_Location();"   id="btVerRutas1" type="button">Ver ubicación actual</button>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="row col-md-12 " id="map" style=" margin: 12px; height: 500px; overflow: auto; "> 
+                        </div>
                     </div>
 
                     <%-- TENEMOS UNA TABLA PARA MOSTRAR LAS RUTAS DE UN VEHICULOL--%>
                     <div class="tab-pane fade" id="v-pills-car_routes" role="tabpanel" aria-labelledby="v-pills-car_routes-tab">
                         <div class="col-md-12" style="margin: 10px; color: black;"> 
                             <h6 style="color:#0396E3;">home/rutas de un vehículo</h6>
-                            <div class="col-md-12">
-
-                            </div>
-
                         </div>
                         <div class="col-md-12" style="margin: 15px;">
-                            <%--
-                            <form >
-                                <div class="form-row">
-                                    <div class="col">
-                                        <div class='input-group date' id='datetimepicker1'>
-                                            <input id="pk_date" type='text'placeholder="Click para seleccionar fecha" class="form-control" />
-                                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-
-                                        <input type="text" class="form-control" placeholder="Ingrese placa" id="pk_plate" name="pk_plate">
-                                    </div>
-                                    <div class="col">
-                                        <button class="btn btn-success"  id="btVerRutas1" type="button">Ver rutas</button>
-
-                                    </div>
-                                     <div class="alert alert-warning" id="errorMessageRoutes" hidden="true">
-                                        <strong id="MessageToShow"></strong>
-                                    </div>
-                                </div>
-                            </form>
-                            --%>
                             <form >
                                 <div class="form-row">
                                     <div class="col">
@@ -442,8 +435,7 @@
                         </div>
                         <div class="row col-md-12 " id="div_all_routes" style=" margin: 12px; height: 500px; overflow: auto; "> 
                         </div>
-                             <div class="row col-md-12 " id="map" style=" margin: 12px; height: 500px; overflow: auto; "> 
-                        </div>
+
 
                     </div>
                     <%--  EN ESTE DIV SE MUSETRA EL MAPA--%>

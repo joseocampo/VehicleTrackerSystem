@@ -137,6 +137,30 @@ function  obtainRoutes() {
     };
     AJAX_req.send();
 }
+function current_Location(){
+
+    url = "/Vehicle_Tracker_System/Current_Location?user=yo";
+
+    var AJAX_req = new XMLHttpRequest();
+    AJAX_req.open("GET", url, true);
+    AJAX_req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    AJAX_req.onreadystatechange = function () {
+        if (AJAX_req.readyState === 4 && AJAX_req.status === 200) {
+            view_Current_Location(AJAX_req.responseText);
+        }
+    };
+    AJAX_req.send();
+}
+function view_Current_Location(myJson){
+    var algo = myJson;
+//     var my_location = JSON.parse(myJson);
+     alert(algo);
+     
+     var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 6,
+        center: {lat: intermedios[0].location.lat, lng: intermedios[0].location.lng}
+    });
+}
 function drawAllRoutes(routesJSON) {
 
     var routesJson = JSON.parse(routesJSON);

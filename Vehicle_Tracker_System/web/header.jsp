@@ -22,7 +22,8 @@
         <script src="js/popper.js" type="text/javascript"></script>
         <script src="js/jquery.js" type="text/javascript"></script>
         <script src="js/bootstrap.min.js" type="text/javascript"></script>
-
+        <script src="js/vehicleActive.js" type="text/javascript"></script>
+        
         <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
         <script src="js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
         <link href="css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css"/>

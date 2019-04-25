@@ -86,7 +86,7 @@
                     <%-- CONSULTAS--%>
                     <a class="nav_title_fonts nav-link  disabled" style="color: white;"  data-toggle="pill" href="#" role="tab" aria-controls="" aria-selected="true"><i class="fa fa-binoculars" style="color: white; font-size: 25px;" aria-hidden="true"></i>&nbsp;&nbsp;Consultas</a>
                     <a style="" class=" nav_item_own nav-link " id="v-pills-show_users-tab" onclick="clear_screen_consult_users();" data-toggle="pill" href="#v-pills-show_users" role="tab" aria-controls="v-pills-show_users" aria-selected="true">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-user color_iconos_item" aria-hidden="true"></i>&nbsp;&nbsp;Consultar Usuarios</a>
-                    <a class="nav_item_own nav-link" id="v-pills-show_cars-tab" data-toggle="pill" href="#v-pills-show_cars" role="tab" aria-controls="v-pills-show_cars" aria-selected="false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-check color_iconos_item" aria-hidden="true"></i>&nbsp;&nbsp;Vehículos Disponibles</a>
+                    <a class="nav_item_own nav-link" id="v-pills-show_cars-tab" data-toggle="pill" href="#v-pills-show_cars" role="tab" aria-controls="v-pills-show_cars" aria-selected="false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-map-marker color_iconos_item" aria-hidden="true"></i>&nbsp;&nbsp;Ver Ubicación Actual</a>
                     <a class="nav_item_own nav-link" onclick="clear_screen_maps();" id="v-pills-car_routes-tab" data-toggle="pill" href="#v-pills-car_routes" role="tab" aria-controls="v-pills-car_routes" aria-selected="false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-map color_iconos_item" aria-hidden="true"></i>&nbsp;&nbsp;Rutas de un Vehículo</a>
 
                     <%-- ROLES--%>
@@ -374,7 +374,7 @@
                         </div>
                     </div>
 
-                    <%-- TENEMOS UNA TABLA PARA MOSTRAR VEHICULOS DISPONOBLES--%>
+                    <%-- TENEMOS UN DIV PARA MOSTRAR LA UBICACIÓN ACTUAL DE UN VEHICULO--%>
                     <div class="tab-pane fade" id="v-pills-show_cars" role="tabpanel" aria-labelledby="v-pills-show_cars-tab">
                         <div class="col-md-12" style="margin: 10px; color: black;">
                             <h6 style="color:#0396E3;">home/vehículos disponibles</h6>
@@ -394,7 +394,7 @@
                                         <input type="text" class="form-control" onclick="" placeholder="Ingrese placa" id="pk_plate" name="pk_plate">
                                     </div>
                                     <div class="col">
-                                        <button class="btn btn-success"onclick="current_Location();"   id="btVerRutas1" type="button">Ver ubicación actual</button>
+                                        <button class="btn btn-success"onclick="test();"   id="btVerRutas1" type="button">Ver ubicación actual</button>
 
                                     </div>
                                 </div>

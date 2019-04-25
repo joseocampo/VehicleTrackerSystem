@@ -7,11 +7,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.JOptionPane;
+import modeloServidor.Client;
+import modeloServidor.Server;
 
 /**
  *
@@ -19,8 +22,8 @@ import javax.swing.JOptionPane;
  */
 public class Current_Location extends HttpServlet {
 
-    static Socket s;
-    static ServerSocket ss;
+    static Socket s = null;
+    static ServerSocket ss = null;
     static InputStreamReader ipr;
     static BufferedReader br;
     static String message;
@@ -28,8 +31,19 @@ public class Current_Location extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
+        String vehicle = request.getParameter("vehicle");
+//        Server server = new Server();
+//        server.initServer();
+//        
+//        Client client = server.client(0);
+//        server.initComunication(client);
+
         try {
-            ss = new ServerSocket(7000);
+            new ServerSocket(6000).close();
+
+        } catch (Exception ex) {
+            ss = new ServerSocket(6000);
 //            while (true) {
             s = ss.accept();
             ipr = new InputStreamReader(s.getInputStream());
@@ -39,18 +53,57 @@ public class Current_Location extends HttpServlet {
             System.out.println(message);
 
             try (PrintWriter out = response.getWriter()) {
+                ArrayList<String> data = plate(message);
+                String plate = data.get(0);
+                String lat_long = data.get(1);
 
-                out.println(message);
+                System.out.println("plate: " + plate + " tam: " + plate.length());
+                System.out.println("lat: " + lat_long);
+                System.out.println("vehicle: " + vehicle + " tam: " + vehicle.length());
+                if (plate.equals(vehicle)) {
+                    System.out.println("plate Si: " + plate);
+                    out.println(lat_long);
+                } else {
+                    System.out.println("errpr: " + plate);
+                    out.println("error");
+                }
+
+                ipr.close();
+                br.close();
+                s.close();
                 ss.close();
             }
-             ss.close();
-//            }
-
-        } catch (IOException e) {
-//            ss.close();
-            JOptionPane.showConfirmDialog(null, e.getMessage());
+            ipr.close();
+            br.close();
+            s.close();
+            ss.close();
+        }
+        try (PrintWriter out = response.getWriter()) {
+            out.println("error");
         }
 
+//            }
+    }
+
+    public ArrayList<String> plate(String string) {
+        char[] aux = string.toCharArray();
+
+        String plate = "";
+        String lat_long = "";
+        for (int i = 0; i < aux.length; i++) {
+            if (aux[i] != ';') {
+                plate += aux[i];
+            } else {
+                for (int j = (i + 1); j < aux.length; j++) {
+                    lat_long += aux[j];
+                }
+                i = aux.length;
+            }
+        }
+        ArrayList<String> data = new ArrayList<>();
+        data.add(plate);
+        data.add(lat_long);
+        return data;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

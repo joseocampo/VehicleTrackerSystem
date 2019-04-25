@@ -15,21 +15,21 @@ function initdMap() {
     var directionsService = new google.maps.DirectionsService;
     var directionsDisplay = new google.maps.DirectionsRenderer;
     //waypoints to add
-   var intermedios = [{location: {lat: 9.9948033, lng: -84.0982678}, stopover: true},
-    {location: {lat: 9.9930368, lng: -84.1096207}, stopover: true},
-    {location: {lat: 9.9962729, lng: -84.1118117}, stopover: true},
+    var intermedios = [{location: {lat: 9.9948033, lng: -84.0982678}, stopover: true},
+        {location: {lat: 9.9930368, lng: -84.1096207}, stopover: true},
+        {location: {lat: 9.9962729, lng: -84.1118117}, stopover: true},
 //    {location: {lat: 10.0002357, lng: -84.1062367}, stopover: true},
-    {location: {lat:10.0009845, lng: -84.1154571}, stopover: true},
-    {location: {lat: 10.0018053, lng: -84.1173553}, stopover: true},
-    {location: {lat: 9.9992132, lng: -84.1170881}, stopover: true},
-    {location: {lat: 9.9951037, lng: -84.1171391}, stopover: true},
-    {location: {lat: 9.9935142, lng: -84.1208358}, stopover: true},
-    {location: {lat: 9.9937611, lng: -84.1313862}, stopover: true},
-    {location: {lat:10.0043801, lng: -84.1521387}, stopover: true}
+        {location: {lat: 10.0009845, lng: -84.1154571}, stopover: true},
+        {location: {lat: 10.0018053, lng: -84.1173553}, stopover: true},
+        {location: {lat: 9.9992132, lng: -84.1170881}, stopover: true},
+        {location: {lat: 9.9951037, lng: -84.1171391}, stopover: true},
+        {location: {lat: 9.9935142, lng: -84.1208358}, stopover: true},
+        {location: {lat: 9.9937611, lng: -84.1313862}, stopover: true},
+        {location: {lat: 10.0043801, lng: -84.1521387}, stopover: true}
 
 
 
-];
+    ];
 
     //api map
     var map = new google.maps.Map(document.getElementById('map'), {
@@ -43,7 +43,7 @@ function initdMap() {
     //new Array(waypts[0].location.lat,waypts[0].location.lng)
     directionsService.route({
         origin: {lat: intermedios[0].location.lat, lng: intermedios[0].location.lng}, //db waypoint start
-        destination: {lat: intermedios[intermedios.length-1].location.lat, lng: intermedios[intermedios.length-1].location.lng}, //db waypoint end
+        destination: {lat: intermedios[intermedios.length - 1].location.lat, lng: intermedios[intermedios.length - 1].location.lng}, //db waypoint end
         waypoints: intermedios,
         optimizeWaypoints: true,
         travelMode: 'DRIVING'
@@ -137,7 +137,69 @@ function  obtainRoutes() {
     };
     AJAX_req.send();
 }
-function current_Location(){
+
+function test() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 6,
+        center: {lat: 9.9948033, lng: -84.0982678}
+    });
+
+    var x = "";
+    var y = "";
+    var lati = 0.0;
+    var long = 0.0;
+    var con = 0;
+    setInterval(function () {
+
+
+
+        url = "/Vehicle_Tracker_System/Current_Location?vehicle=GTV321";
+
+        var AJAX_req = new XMLHttpRequest();
+        AJAX_req.open("GET", url, true);
+        AJAX_req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        AJAX_req.onreadystatechange = function () {
+            if (AJAX_req.readyState === 4 && AJAX_req.status === 200) {
+
+//                alert(AJAX_req.responseText);
+                var json = AJAX_req.responseText;
+
+                if (json === "error") {
+                    alert("error");
+                } else {
+                    for (var i = 0; i < json.length; i++) {
+                        if (json[i] !== ";") {
+                            x += json[i];
+                        } else {
+                            for (var j = (i + 1); j < json.length; j++) {
+                                y += json[j];
+                            }
+                            i = json.length;
+                        }
+                    }
+//                alert("X: " + x+" Y: " + y);
+                    lati = parseFloat(x);
+                    long = parseFloat(y);
+//                alert("lati: " + lati + " long: " + long);
+                    var marker = new google.maps.Marker({
+                        position: {lat: lati, lng: long},
+                        title: 'Hello World!'
+                    });
+                    marker.setMap(map);
+                    x = "";
+                    y = "";
+                    lati = 0.0;
+                    long = 0.0;
+                }
+
+
+
+            }
+        };
+        AJAX_req.send();
+    }, 30000);
+}
+function current_Location() {
 
     url = "/Vehicle_Tracker_System/Current_Location?user=yo";
 
@@ -151,15 +213,8 @@ function current_Location(){
     };
     AJAX_req.send();
 }
-function view_Current_Location(myJson){
-    var algo = myJson;
-//     var my_location = JSON.parse(myJson);
-     alert(algo);
-     
-     var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 6,
-        center: {lat: intermedios[0].location.lat, lng: intermedios[0].location.lng}
-    });
+function view_Current_Location(json) {
+
 }
 function drawAllRoutes(routesJSON) {
 

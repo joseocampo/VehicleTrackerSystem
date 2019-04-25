@@ -86,9 +86,9 @@
                     <%-- CONSULTAS--%>
                     <a class="nav_title_fonts nav-link  disabled" style="color: white;"  data-toggle="pill" href="#" role="tab" aria-controls="" aria-selected="true"><i class="fa fa-binoculars" style="color: white; font-size: 25px;" aria-hidden="true"></i>&nbsp;&nbsp;Consultas</a>
                     <a style="" class=" nav_item_own nav-link " id="v-pills-show_users-tab" onclick="clear_screen_consult_users();" data-toggle="pill" href="#v-pills-show_users" role="tab" aria-controls="v-pills-show_users" aria-selected="true">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-user color_iconos_item" aria-hidden="true"></i>&nbsp;&nbsp;Consultar Usuarios</a>
-                    <a class="nav_item_own nav-link" id="v-pills-show_cars-tab" data-toggle="pill" href="#v-pills-show_cars" role="tab" aria-controls="v-pills-show_cars" aria-selected="false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-check color_iconos_item" aria-hidden="true"></i>&nbsp;&nbsp;Vehículos Disponibles</a>
+                    <a class="nav_item_own nav-link" id="v-pills-show_cars-tab" data-toggle="pill" href="#v-pills-show_cars" role="tab" aria-controls="v-pills-show_cars" aria-selected="false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-map-marker color_iconos_item" aria-hidden="true"></i>&nbsp;&nbsp;Ver Ubicación Actual</a>
                     <a class="nav_item_own nav-link" onclick="clear_screen_maps();" id="v-pills-car_routes-tab" data-toggle="pill" href="#v-pills-car_routes" role="tab" aria-controls="v-pills-car_routes" aria-selected="false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-map color_iconos_item" aria-hidden="true"></i>&nbsp;&nbsp;Rutas de un Vehículo</a>
-
+                    <a class="nav_item_own nav-link" onclick="clear_screen_active();" id="v-pills-show_cars_active-tab" data-toggle="pill" href="#v-pills-show_cars_active" role="tab" aria-controls="v-pills-show_cars_active" aria-selected="false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-check color_iconos_item" aria-hidden="true"></i>&nbsp;&nbsp;Vehículos Activos</a>
                     <%-- ROLES--%>
                     <a class="nav_title_fonts nav-link  disabled" style="color: white;"  data-toggle="pill" href="#" role="tab" aria-controls="" aria-selected="true"><i class="fa fa-cog " style="color: white; font-size: 25px; " aria-hidden="true"></i>&nbsp;&nbsp;Roles y Usuarios</a>
                     <a class="nav_item_own nav-link" id="v-pills-changing_roles-tab" onclick="clear_screen_roles_users();"  data-toggle="pill" href="#v-pills-changing_roles" role="tab" aria-controls="v-pills-changing_roles" aria-selected="false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa  fa-pencil-square-o  color_iconos_item" style="font-size: 12px;" aria-hidden="true"></i>&nbsp;&nbsp;Cambiar Roles</a>
@@ -374,12 +374,33 @@
                         </div>
                     </div>
 
-                    <%-- TENEMOS UNA TABLA PARA MOSTRAR VEHICULOS DISPONOBLES--%>
+                    <%-- TENEMOS UN DIV PARA MOSTRAR LA UBICACIÓN ACTUAL DE UN VEHICULO--%>
                     <div class="tab-pane fade" id="v-pills-show_cars" role="tabpanel" aria-labelledby="v-pills-show_cars-tab">
                         <div class="col-md-12" style="margin: 10px; color: black;">
                             <h6 style="color:#0396E3;">home/vehículos disponibles</h6>
                             <h3 style="color:#999999;">Ver los vehículos disponibles y sus detalles</h3>
                             <hr/>
+                        </div>
+                        <div class="col-md-12" style="margin: 15px;">
+                            <form >
+                                <div class="form-row">
+                                    <div class="col">
+
+                                        <input id="" type='' class="form-control" name="" />
+
+                                    </div>
+                                    <div class="col">
+
+                                        <input type="text" class="form-control" onclick="" placeholder="Ingrese placa" id="pk_plate" name="pk_plate">
+                                    </div>
+                                    <div class="col">
+                                        <button class="btn btn-success"onclick="test();"   id="btVerRutas1" type="button">Ver ubicación actual</button>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="row col-md-12 " id="map" style=" margin: 12px; height: 500px; overflow: auto; "> 
                         </div>
                     </div>
 
@@ -387,36 +408,8 @@
                     <div class="tab-pane fade" id="v-pills-car_routes" role="tabpanel" aria-labelledby="v-pills-car_routes-tab">
                         <div class="col-md-12" style="margin: 10px; color: black;"> 
                             <h6 style="color:#0396E3;">home/rutas de un vehículo</h6>
-                            <div class="col-md-12">
-
-                            </div>
-
                         </div>
                         <div class="col-md-12" style="margin: 15px;">
-                            <%--
-                            <form >
-                                <div class="form-row">
-                                    <div class="col">
-                                        <div class='input-group date' id='datetimepicker1'>
-                                            <input id="pk_date" type='text'placeholder="Click para seleccionar fecha" class="form-control" />
-                                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-
-                                        <input type="text" class="form-control" placeholder="Ingrese placa" id="pk_plate" name="pk_plate">
-                                    </div>
-                                    <div class="col">
-                                        <button class="btn btn-success"  id="btVerRutas1" type="button">Ver rutas</button>
-
-                                    </div>
-                                     <div class="alert alert-warning" id="errorMessageRoutes" hidden="true">
-                                        <strong id="MessageToShow"></strong>
-                                    </div>
-                                </div>
-                            </form>
-                            --%>
                             <form >
                                 <div class="form-row">
                                     <div class="col">
@@ -443,9 +436,45 @@
                         <div class="row col-md-12 " id="div_all_routes" style=" margin: 12px; height: 500px; overflow: auto; "> 
                         </div>
 
+
                     </div>
                     <%--  EN ESTE DIV SE MUSETRA EL MAPA--%>
+                    
+                    <%-- TENEMOS UNA TABLA PARA MOSTRAR VEHICULOS Activos--%>
+                    <div class="tab-pane fade" id="v-pills-show_cars_active" role="tabpanel" aria-labelledby="v-pills-show_cars_active-tab">
+                        <div class="col-md-12" style="margin: 10px; color: black;">
+                            <h6 style="color:#0396E3;">home/vehículos activos</h6>
+                            <h3 style="color:#999999;">Ver los vehículos activos y sus detalles</h3>
+                            <hr/>
+                        </div>
 
+                        <div class="col-md-12" style="margin: 15px;">
+                            <form onclick="clearAlertActive();">
+                                <div class="form-row">
+                                    <div class="col">
+                                        <input id="inputIdentify" type='text' placeholder="Id usuario o Placa" class="form-control" name="inputIdentify"/>
+                                    </div>
+                                    <div class="col">
+                                        <select  class="custom-select" placeholder="Seleccione uno" size="1" required="required" id="plate_id_select" name="plate_id_select" >
+                                            <option name="plate_act" >Placa</option>
+                                            <option name="idUser_act">Usuario</option>
+                                        </select>
+                                    </div>
+                                    <div class="col">
+                                        <button type="button" class="btn btn-success" id="btVerAct">Enviar</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="alert alert-warning  " id="errorMessageActive" hidden="true">
+                                <strong id="MessageToShow1"></strong>
+                            </div>
+                            <div class="row col-md-12 " id="div_active_route" style=" margin: 12px; height: 500px; overflow: auto; "> 
+                            </div>
+                            <div class="row col-md-12 " id="map1" style=" margin: 12px; height: 500px; overflow: auto; "> 
+                            </div>
+                        </div>
+                    </div>
+                    
                     <%-- TENEMOS UNA TABLA PARA BUCAR UN USUARIO Y CAMBIARLE EL ROL EN LA BASE DE DATOS. --%>
                     <div class="tab-pane fade" id="v-pills-changing_roles" role="tabpanel" aria-labelledby="v-pills-changing_roles-tab">
 

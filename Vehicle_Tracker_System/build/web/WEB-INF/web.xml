@@ -64,6 +64,14 @@
         <servlet-name>Consult_Routes</servlet-name>
         <servlet-class>Controller.Consult_Routes</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Current_Location</servlet-name>
+        <servlet-class>Controller.Current_Location</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Consult_Vehicles</servlet-name>
+        <servlet-class>Controller.Consult_Vehicles</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login_Servlet</servlet-name>
         <url-pattern>/Login_Servlet</url-pattern>
@@ -127,6 +135,14 @@
     <servlet-mapping>
         <servlet-name>Consult_Routes</servlet-name>
         <url-pattern>/Consult_Routes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Current_Location</servlet-name>
+        <url-pattern>/Current_Location</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Consult_Vehicles</servlet-name>
+        <url-pattern>/Consult_Vehicles</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

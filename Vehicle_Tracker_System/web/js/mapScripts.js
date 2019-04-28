@@ -77,6 +77,54 @@ function  obtainRoutes() {
     AJAX_req.send();
 }
 
+function vehicle_current_location() {
+    var pk_plate_current = document.getElementById("pk_plate_current").value;
+    document.getElementById("current_location_map").innerHTML = "";
+
+    if (pk_plate_current === "") {
+        console.log("vacio");
+        document.getElementById("message_empty_curren_location_field").innerHTML = "ingrese una placa ";
+        document.getElementById("error_Message_Curren_location").hidden = false;
+    } else {
+        console.log("no vacio");
+
+        var url = "/Vehicle_Tracker_System/Consult_Vehicles?pk_plate_current=" + pk_plate_current;
+
+        var AJAX_req = new XMLHttpRequest();
+        AJAX_req.open("GET", url, true);
+        AJAX_req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        AJAX_req.onreadystatechange = function () {
+            if (AJAX_req.readyState === 4 && AJAX_req.status === 200) {
+                var server_amswer = AJAX_req.responseText;
+
+                if (server_amswer == 1) {
+                    console.log("no vacio server_amswer = 1");
+                    current_Location();
+                } else {
+                    console.log("no vacio server_amswer = 0");
+                    
+                    document.getElementById("message_empty_curren_location_field").innerHTML = "Este vehículo no posee una ruta actual.";
+                    document.getElementById("error_Message_Curren_location").hidden = false;
+                }
+            }
+        };
+        AJAX_req.send();
+
+
+    }
+
+}
+
+function clear_screen_current_location() {
+    document.getElementById("pk_plate_current").value = "";
+    document.getElementById("error_Message_Curren_location").hidden = true;
+    document.getElementById("current_location_map").innerHTML = "";
+
+}
+function hide_message_empty_field() {
+    document.getElementById("pk_plate_current").value = "";
+    document.getElementById("error_Message_Curren_location").hidden = true;
+}
 function current_Location() {
     var map = new google.maps.Map(document.getElementById('current_location_map'), {
         zoom: 6,
@@ -125,6 +173,7 @@ function current_Location() {
 
                     //si ya dibujamos un marcador en el mapa, la segunda vez se elimina el marker que ya está y se pinta el
                     //siguiente.
+                    console.log(con);
                     if (con > 0) {
                         var marker_delete = current_position_markers[0];
                         marker_delete.setMap(null);
@@ -153,7 +202,7 @@ function current_Location() {
                             '<h7></h7> ' +
                             '<p style="color: red;">Hora  actual: ' + date.getHours() + ":" + date.getMinutes() + '</p>' +
                             '<p style="color: red;">Fecha actual: ' + date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear() + '</p>' +
-                            '<a href='+url_google_maps+'>Ver ubicación en Google Maps</a>' +
+                            '<a href=' + url_google_maps + '>Ver ubicación en Google Maps</a>' +
                             '</div>' +
                             '</div>';
                     //se cra la ventana de informacion.

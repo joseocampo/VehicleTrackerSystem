@@ -6,6 +6,7 @@
 package Controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -24,15 +25,6 @@ import org.json.JSONException;
  */
 public class Consult_Vehicles extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -42,11 +34,8 @@ public class Consult_Vehicles extends HttpServlet {
         String password = (String) request.getSession().getAttribute("password");
         String userB = "root";
         String passwordB = "";
-        
-        
 
-        String inputIdentify = request.getParameter("inputIdentify");
-        String plate_id_select = request.getParameter("plate_id_select");
+        String pk_plate_current = request.getParameter("pk_plate_current");
 
         try {
             Connection conn;
@@ -57,23 +46,32 @@ public class Consult_Vehicles extends HttpServlet {
                             user, password));
             ResultSet rs1 = stm.executeQuery();
             if (rs1.next()) {
-                if (plate_id_select.equals("Placa")) {
-                    stm = conn.prepareCall("SELECT * FROM t_vehicle WHERE PK_License_plate= ?;");
-                    stm.clearParameters();
-                    stm.setString(1, inputIdentify);
-                    System.out.println(stm);
+                stm = conn.prepareCall("SELECT * FROM t_routes WHERE FK_Vehicle = ? and state = 1;");
+                stm.clearParameters();
+                stm.setString(1, pk_plate_current);
+               
+                try (ResultSet rs = stm.executeQuery()) {
 
-                } else if (plate_id_select.equals("Usuario")) {
-                    stm = conn.prepareCall("SELECT * FROM t_user_information WHERE PK_Id=?;");
-                    stm.clearParameters();
-                    stm.setString(1, inputIdentify);
-                    System.out.println(stm);
+                    if (rs.next()) {
+                        try (PrintWriter out = response.getWriter()) {
+                            System.out.println("Este vehiculo SÍ tiene ruta actual");
+                            out.println(1);
+                        }
+
+                    } else {
+                        try (PrintWriter out = response.getWriter()) {
+                             System.out.println("Este vehiculo NO tiene ruta actual");
+                            out.println(0);
+                        }
+                    }
                 }
+
+            } else {
 
             }
 
         } catch (ClassNotFoundException | SQLException | JSONException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            System.out.println("Error en Consult_Vehicles servlet: " + e.getMessage());
         }
     }
 

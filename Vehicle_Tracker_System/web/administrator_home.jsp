@@ -86,9 +86,9 @@
                     <%-- CONSULTAS--%>
                     <a class="nav_title_fonts nav-link  disabled" style="color: white;"  data-toggle="pill" href="#" role="tab" aria-controls="" aria-selected="true"><i class="fa fa-binoculars" style="color: white; font-size: 25px;" aria-hidden="true"></i>&nbsp;&nbsp;Consultas</a>
                     <a style="" class=" nav_item_own nav-link " id="v-pills-show_users-tab" onclick="clear_screen_consult_users();" data-toggle="pill" href="#v-pills-show_users" role="tab" aria-controls="v-pills-show_users" aria-selected="true">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-user color_iconos_item" aria-hidden="true"></i>&nbsp;&nbsp;Consultar Usuarios</a>
-                    <a class="nav_item_own nav-link" id="v-pills-show_cars-tab" data-toggle="pill" href="#v-pills-show_cars" role="tab" aria-controls="v-pills-show_cars" aria-selected="false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-map-marker color_iconos_item" aria-hidden="true"></i>&nbsp;&nbsp;Ver Ubicación Actual</a>
+                    <a class="nav_item_own nav-link" onclick="clear_screen_current_location()" id="v-pills-show_cars-tab" data-toggle="pill" href="#v-pills-show_cars" role="tab" aria-controls="v-pills-show_cars" aria-selected="false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-map-marker color_iconos_item" aria-hidden="true"></i>&nbsp;&nbsp;Ver Ubicación Actual</a>
                     <a class="nav_item_own nav-link" onclick="clear_screen_maps();" id="v-pills-car_routes-tab" data-toggle="pill" href="#v-pills-car_routes" role="tab" aria-controls="v-pills-car_routes" aria-selected="false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-map color_iconos_item" aria-hidden="true"></i>&nbsp;&nbsp;Rutas de un Vehículo</a>
-                    <a class="nav_item_own nav-link" onclick="clear_screen_active();" id="v-pills-show_cars_active-tab" data-toggle="pill" href="#v-pills-show_cars_active" role="tab" aria-controls="v-pills-show_cars_active" aria-selected="false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-check color_iconos_item" aria-hidden="true"></i>&nbsp;&nbsp;Vehículos Activos</a>
+                    <a class="nav_item_own nav-link" onclick="clear_screen_active();" id="v-pills-show_cars_active-tab" data-toggle="pill" href="#v-pills-show_cars_active" role="tab" aria-controls="v-pills-show_cars_active" aria-selected="false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-check color_iconos_item" aria-hidden="true"></i>&nbsp;&nbsp;Mostrar Averías</a>
                     <%-- ROLES--%>
                     <a class="nav_title_fonts nav-link  disabled" style="color: white;"  data-toggle="pill" href="#" role="tab" aria-controls="" aria-selected="true"><i class="fa fa-cog " style="color: white; font-size: 25px; " aria-hidden="true"></i>&nbsp;&nbsp;Roles y Usuarios</a>
                     <a class="nav_item_own nav-link" id="v-pills-changing_roles-tab" onclick="clear_screen_roles_users();"  data-toggle="pill" href="#v-pills-changing_roles" role="tab" aria-controls="v-pills-changing_roles" aria-selected="false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa  fa-pencil-square-o  color_iconos_item" style="font-size: 12px;" aria-hidden="true"></i>&nbsp;&nbsp;Cambiar Roles</a>
@@ -377,29 +377,26 @@
                     <%-- TENEMOS UN DIV PARA MOSTRAR LA UBICACIÓN ACTUAL DE UN VEHICULO--%>
                     <div class="tab-pane fade" id="v-pills-show_cars" role="tabpanel" aria-labelledby="v-pills-show_cars-tab">
                         <div class="col-md-12" style="margin: 10px; color: black;">
-                            <h6 style="color:#0396E3;">home/vehículos disponibles</h6>
+                            <h6 style="color:#0396E3;">home/ubicación actual</h6>
                             <h3 style="color:#999999;">Ver los vehículos disponibles y sus detalles</h3>
                             <hr/>
                         </div>
                         <div class="col-md-12" style="margin: 15px;">
                             <form >
-                                <div class="form-row">
+                                <div class="form-row">  
                                     <div class="col">
-
-                                        <input id="" type='' class="form-control" name="" />
-
+                                        <input type="text" class="form-control" required="required" onclick="hide_message_empty_field();" placeholder="Ingrese placa" id="pk_plate_current" name="pk_plate">
                                     </div>
                                     <div class="col">
-
-                                        <input type="text" class="form-control" onclick="" placeholder="Ingrese placa" id="pk_plate_current" name="pk_plate">
-                                    </div>
-                                    <div class="col">
-                                        <button class="btn btn-success"onclick="current_Location();"   id="btVerRutas1" type="button">Ver ubicación actual</button>
+                                        <button class="btn btn-success"onclick="vehicle_current_location();"   id="btVerRutas1" type="button">Ver ubicación actual</button>
 
                                     </div>
                                 </div>
                             </form>
                         </div>
+                        <div class="alert alert-warning  " id="error_Message_Curren_location" hidden="true">
+                                <strong id="message_empty_curren_location_field"></strong>
+                            </div>
                         <div class="row col-md-12 " id="current_location_map" style=" margin: 12px; height: 500px; overflow: auto; "> 
                         </div>
                     </div>

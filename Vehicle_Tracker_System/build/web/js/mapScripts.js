@@ -1,68 +1,7 @@
 
 var middle_points = [];
-//var my_route = {
-//    origin: "Calle 6, Heredia, San Pablo, Costa Rica",
-//    points: [{"calle": "San Francisco, Heredia"}, {"calle": "Colegio Técnico Profesional de Heredia"}],
-//    destination: "Ferretería Brenes"
-//};
-
-
-
-
-
-function initdMap() {
-    //get api uses
-    var directionsService = new google.maps.DirectionsService;
-    var directionsDisplay = new google.maps.DirectionsRenderer;
-    //waypoints to add
-    var intermedios = [{location: {lat: 9.9948033, lng: -84.0982678}, stopover: true},
-        {location: {lat: 9.9930368, lng: -84.1096207}, stopover: true},
-        {location: {lat: 9.9962729, lng: -84.1118117}, stopover: true},
-//    {location: {lat: 10.0002357, lng: -84.1062367}, stopover: true},
-        {location: {lat: 10.0009845, lng: -84.1154571}, stopover: true},
-        {location: {lat: 10.0018053, lng: -84.1173553}, stopover: true},
-        {location: {lat: 9.9992132, lng: -84.1170881}, stopover: true},
-        {location: {lat: 9.9951037, lng: -84.1171391}, stopover: true},
-        {location: {lat: 9.9935142, lng: -84.1208358}, stopover: true},
-        {location: {lat: 9.9937611, lng: -84.1313862}, stopover: true},
-        {location: {lat: 10.0043801, lng: -84.1521387}, stopover: true}
-
-
-
-    ];
-
-    //api map
-    var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 6,
-        center: {lat: intermedios[0].location.lat, lng: intermedios[0].location.lng}
-    });
-    //add map
-    directionsDisplay.setMap(map);
-
-    // set the new
-    //new Array(waypts[0].location.lat,waypts[0].location.lng)
-    directionsService.route({
-        origin: {lat: intermedios[0].location.lat, lng: intermedios[0].location.lng}, //db waypoint start
-        destination: {lat: intermedios[intermedios.length - 1].location.lat, lng: intermedios[intermedios.length - 1].location.lng}, //db waypoint end
-        waypoints: intermedios,
-        optimizeWaypoints: true,
-        travelMode: 'DRIVING'
-    }, function (response, status) {
-        if (status === google.maps.DirectionsStatus.OK) {
-            directionsDisplay.setDirections(response);
-        } else {
-            window.alert('Ha fallat la comunicació amb el mapa a causa de: ' + status);
-        }
-    });
-}
-
-
-//======================================================
-
-
-
-
-
+var current_position_markers = [];
+//=========================================================
 function initializeAPIComponents() {//CUANDO SE CARGA EL API, SE LLAMA ESTA FUNCION 
     //LA CUAL AGREGA UN EVENTO AL BOTON VER_RUTAS
     document.getElementById('btVerRutas1').addEventListener('click', showAllRoutes);
@@ -138,32 +77,34 @@ function  obtainRoutes() {
     AJAX_req.send();
 }
 
-function test() {
-    var map = new google.maps.Map(document.getElementById('map'), {
+function current_Location() {
+    var map = new google.maps.Map(document.getElementById('current_location_map'), {
         zoom: 6,
         center: {lat: 9.9948033, lng: -84.0982678}
     });
-
     var x = "";
     var y = "";
     var lati = 0.0;
     var long = 0.0;
     var con = 0;
+    var date = new Date();
+
+    //usuario en la session
+    var user_in_session = document.getElementById("user_in_session").innerText;
     setInterval(function () {
+        var pk_plate_current = document.getElementById("pk_plate_current").value;
 
 
-
-        url = "/Vehicle_Tracker_System/Current_Location?vehicle=GTV321";
+        url = "/Vehicle_Tracker_System/Current_Location?vehicle=" + pk_plate_current;
 
         var AJAX_req = new XMLHttpRequest();
         AJAX_req.open("GET", url, true);
         AJAX_req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         AJAX_req.onreadystatechange = function () {
             if (AJAX_req.readyState === 4 && AJAX_req.status === 200) {
-
-//                alert(AJAX_req.responseText);
                 var json = AJAX_req.responseText;
 
+                //en este if se hace la logica de obtener las coodenadas que devuelve el servlet.
                 if (json === "error") {
                     alert("error");
                 } else {
@@ -177,45 +118,71 @@ function test() {
                             i = json.length;
                         }
                     }
-//                alert("X: " + x+" Y: " + y);
+
+                    //es necesario convertir las coordenadas a float porque poseen punto(.) .
                     lati = parseFloat(x);
                     long = parseFloat(y);
-//                alert("lati: " + lati + " long: " + long);
+
+                    //si ya dibujamos un marcador en el mapa, la segunda vez se elimina el marker que ya está y se pinta el
+                    //siguiente.
+                    if (con > 0) {
+                        var marker_delete = current_position_markers[0];
+                        marker_delete.setMap(null);
+                        current_position_markers.pop();
+                    }
+                    //se incrementa el contador de marcadores.
+                    con++;
+
+                    //se crea el marcador que se va a pintar en el mapa.
                     var marker = new google.maps.Marker({
                         position: {lat: lati, lng: long},
-                        title: 'Hello World!'
+                        title: "De click en el marcador para más información!"
                     });
+
+                    //agregamos el marcador al mapa.
                     marker.setMap(map);
+
+                    var url_google_maps = "https://maps.google.com/?q=" + lati + "," + long;
+
+                    var contentString = '<div id="content">' +
+                            '<div id="siteNotice">' +
+                            '</div>' +
+                            '<h3 id="firstHeading" class="firstHeading">Placa del vehículo: ' + pk_plate_current + '</h3>' +
+                            '<div id="bodyContent">' +
+                            '<h6>El usuario a cargo de este vehículo es  <b>' + user_in_session + '</h6>, ' +
+                            '<h7></h7> ' +
+                            '<p style="color: red;">Hora  actual: ' + date.getHours() + ":" + date.getMinutes() + '</p>' +
+                            '<p style="color: red;">Fecha actual: ' + date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear() + '</p>' +
+                            '<a href='+url_google_maps+'>Ver ubicación en Google Maps</a>' +
+                            '</div>' +
+                            '</div>';
+                    //se cra la ventana de informacion.
+                    var infowindow = new google.maps.InfoWindow({
+                        content: contentString
+                    });
+
+                    //le ponemos un evento de mostrar ventana, al botón.
+                    marker.addListener('click', function () {
+                        infowindow.open(map, marker);
+                    });
+
+                    //agregamos el marker a una lista para ñuego tener una referencia a él y poder quitarlo del mapa
+                    //cuando no se ocupe.
+                    current_position_markers.push(marker);
+
+                    //es importante resetear las variables auxiliares en cada llamada de la funcion.
                     x = "";
                     y = "";
                     lati = 0.0;
                     long = 0.0;
                 }
-
-
-
             }
         };
         AJAX_req.send();
-    }, 30000);
+    }, 10000);
 }
-function current_Location() {
 
-    url = "/Vehicle_Tracker_System/Current_Location?user=yo";
 
-    var AJAX_req = new XMLHttpRequest();
-    AJAX_req.open("GET", url, true);
-    AJAX_req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    AJAX_req.onreadystatechange = function () {
-        if (AJAX_req.readyState === 4 && AJAX_req.status === 200) {
-            view_Current_Location(AJAX_req.responseText);
-        }
-    };
-    AJAX_req.send();
-}
-function view_Current_Location(json) {
-
-}
 function drawAllRoutes(routesJSON) {
 
     var routesJson = JSON.parse(routesJSON);

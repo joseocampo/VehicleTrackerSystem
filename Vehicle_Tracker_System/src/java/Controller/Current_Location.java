@@ -4,9 +4,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -33,19 +37,19 @@ public class Current_Location extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         String vehicle = request.getParameter("vehicle");
-//        Server server = new Server();
-//        server.initServer();
-//        
-//        Client client = server.client(0);
-//        server.initComunication(client);
+        //SE INICIA LA COMUNICACION CON EL CLIENTE
+        System.out.println("Antes de crear el socket");
 
         try {
-            new ServerSocket(6000).close();
-
-        } catch (Exception ex) {
             ss = new ServerSocket(6000);
-//            while (true) {
+
+            ss.setSoTimeout(7000);
+
             s = ss.accept();
+
+            System.out.println("luego de crear el socket\n------------------------------------------------------------");
+
+            System.out.println("despues de aceptar el cliente");
             ipr = new InputStreamReader(s.getInputStream());
             br = new BufferedReader(ipr);
             message = br.readLine();
@@ -61,11 +65,11 @@ public class Current_Location extends HttpServlet {
                 System.out.println("lat: " + lat_long);
                 System.out.println("vehicle: " + vehicle + " tam: " + vehicle.length());
                 if (plate.equals(vehicle)) {
-                    System.out.println("plate Si: " + plate);
+                    System.out.println("plate dntro del if: " + plate);
                     out.println(lat_long);
                 } else {
-                    System.out.println("errpr: " + plate);
-                    out.println("error");
+                    System.out.println("placa que llega  es distinta a la buscada: " + plate);
+                    //out.println("error");
                 }
 
                 ipr.close();
@@ -77,12 +81,15 @@ public class Current_Location extends HttpServlet {
             br.close();
             s.close();
             ss.close();
-        }
-        try (PrintWriter out = response.getWriter()) {
-            out.println("error");
+        } catch (Exception ex) {
+            try (PrintWriter out = response.getWriter()) {
+                System.out.println("ESTADO DEL SOCKET ANTES DE CERRARLO EN EL CATCH " + ss.isClosed());
+                ss.close();
+                System.out.println("ESTADO DEL SOCKET DESPUES DE CERRARLO EN EL CATCH " + ss.isClosed());
+//                out.println("estado del socket: " + ss.isClosed());
+            }
         }
 
-//            }
     }
 
     public ArrayList<String> plate(String string) {

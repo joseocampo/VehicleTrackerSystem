@@ -56,7 +56,7 @@
                                     <i class="fa fa-user-circle"  style="font-size: 38px; color: #0396E3" aria-hidden="true"></i>
                                 </td>
                                 <td >
-                                    <label style="font-size: 12pt;">
+                                    <label style="font-size: 12pt;" id="user_in_session">
                                         <% String user = (String) request.getSession(true).getAttribute("user");%>
                                         <% out.print(user);%> 
                                         <%--  &nbsp;&nbsp;&nbsp;Mauricio González--%>
@@ -391,16 +391,16 @@
                                     </div>
                                     <div class="col">
 
-                                        <input type="text" class="form-control" onclick="" placeholder="Ingrese placa" id="pk_plate" name="pk_plate">
+                                        <input type="text" class="form-control" onclick="" placeholder="Ingrese placa" id="pk_plate_current" name="pk_plate">
                                     </div>
                                     <div class="col">
-                                        <button class="btn btn-success"onclick="test();"   id="btVerRutas1" type="button">Ver ubicación actual</button>
+                                        <button class="btn btn-success"onclick="current_Location();"   id="btVerRutas1" type="button">Ver ubicación actual</button>
 
                                     </div>
                                 </div>
                             </form>
                         </div>
-                        <div class="row col-md-12 " id="map" style=" margin: 12px; height: 500px; overflow: auto; "> 
+                        <div class="row col-md-12 " id="current_location_map" style=" margin: 12px; height: 500px; overflow: auto; "> 
                         </div>
                     </div>
 

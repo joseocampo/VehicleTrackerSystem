@@ -109,12 +109,8 @@ function vehicle_current_location() {
             }
         };
         AJAX_req.send();
-
-
     }
-
 }
-
 function clear_screen_current_location() {
     document.getElementById("pk_plate_current").value = "";
     document.getElementById("error_Message_Curren_location").hidden = true;
@@ -198,8 +194,7 @@ function current_Location() {
                             '</div>' +
                             '<h3 id="firstHeading" class="firstHeading">Placa del vehículo: ' + pk_plate_current + '</h3>' +
                             '<div id="bodyContent">' +
-                            '<h6>El usuario a cargo de este vehículo es  <b>' + user_in_session + '</h6>, ' +
-                            '<h7></h7> ' +
+                            '<h6> Si desea consultar el usuario a cargo de este vehículo, puede ir a la sección de <strong>home/Consultar Usuarios</strong> </h6> '+
                             '<p style="color: red;">Hora  actual: ' + date.getHours() + ":" + date.getMinutes() + '</p>' +
                             '<p style="color: red;">Fecha actual: ' + date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear() + '</p>' +
                             '<a href=' + url_google_maps + '>Ver ubicación en Google Maps</a>' +

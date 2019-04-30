@@ -378,7 +378,7 @@
                     <div class="tab-pane fade" id="v-pills-show_cars" role="tabpanel" aria-labelledby="v-pills-show_cars-tab">
                         <div class="col-md-12" style="margin: 10px; color: black;">
                             <h6 style="color:#0396E3;">home/ubicación actual</h6>
-                            <h3 style="color:#999999;">Ver los vehículos disponibles y sus detalles</h3>
+                            <h3 style="color:#999999;">Ver ubicación actual de un vehículo especifico</h3>
                             <hr/>
                         </div>
                         <div class="col-md-12" style="margin: 15px;">

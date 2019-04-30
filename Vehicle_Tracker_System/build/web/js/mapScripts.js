@@ -147,10 +147,13 @@ function current_Location() {
         AJAX_req.onreadystatechange = function () {
             if (AJAX_req.readyState === 4 && AJAX_req.status === 200) {
                 var json = AJAX_req.responseText;
+                 
 
                 //en este if se hace la logica de obtener las coodenadas que devuelve el servlet.
-                if (json === "error") {
-                    alert("error");
+                if (json.length ===7) {
+                    //si el servlet nos devuelve error no pintamos nada.
+                    console.log("no pintamos marker");
+                    
                 } else {
                     for (var i = 0; i < json.length; i++) {
                         if (json[i] !== ";") {

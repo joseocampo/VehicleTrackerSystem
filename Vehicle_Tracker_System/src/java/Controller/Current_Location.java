@@ -86,7 +86,7 @@ public class Current_Location extends HttpServlet {
                 System.out.println("ESTADO DEL SOCKET ANTES DE CERRARLO EN EL CATCH " + ss.isClosed());
                 ss.close();
                 System.out.println("ESTADO DEL SOCKET DESPUES DE CERRARLO EN EL CATCH " + ss.isClosed());
-//                out.println("estado del socket: " + ss.isClosed());
+                out.println("ERROR");
             }
         }
 

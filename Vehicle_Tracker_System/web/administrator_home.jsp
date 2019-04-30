@@ -395,8 +395,8 @@
                             </form>
                         </div>
                         <div class="alert alert-warning  " id="error_Message_Curren_location" hidden="true">
-                                <strong id="message_empty_curren_location_field"></strong>
-                            </div>
+                            <strong id="message_empty_curren_location_field"></strong>
+                        </div>
                         <div class="row col-md-12 " id="current_location_map" style=" margin: 12px; height: 500px; overflow: auto; "> 
                         </div>
                     </div>
@@ -436,12 +436,12 @@
 
                     </div>
                     <%--  EN ESTE DIV SE MUSETRA EL MAPA--%>
-                    
-                    <%-- TENEMOS UNA TABLA PARA MOSTRAR VEHICULOS Activos--%>
+
+                    <%-- TENEMOS UNA TABLA PARA MOSTRAR reporte de averías--%>
                     <div class="tab-pane fade" id="v-pills-show_cars_active" role="tabpanel" aria-labelledby="v-pills-show_cars_active-tab">
                         <div class="col-md-12" style="margin: 10px; color: black;">
-                            <h6 style="color:#0396E3;">home/vehículos activos</h6>
-                            <h3 style="color:#999999;">Ver los vehículos activos y sus detalles</h3>
+                            <h6 style="color:#0396E3;">home/Averías</h6>
+                            <h3 style="color:#999999;">Ver reporte de averías</h3>
                             <hr/>
                         </div>
 
@@ -449,29 +449,32 @@
                             <form onclick="clearAlertActive();">
                                 <div class="form-row">
                                     <div class="col">
-                                        <input id="inputIdentify" type='text' placeholder="Id usuario o Placa" class="form-control" name="inputIdentify"/>
+                                        <input id="inputVehicleFault" type='text' placeholder="Placa" class="form-control" name="inputIdentify"/>
                                     </div>
                                     <div class="col">
-                                        <select  class="custom-select" placeholder="Seleccione uno" size="1" required="required" id="plate_id_select" name="plate_id_select" >
-                                            <option name="plate_act" >Placa</option>
-                                            <option name="idUser_act">Usuario</option>
+                                        <select  class="custom-select" placeholder="Seleccione uno" size="1" required="required" id="plate_id_select_faults" name="plate_id_select" >
+                                            <option name="idVehicleFault">Placa</option>
                                         </select>
                                     </div>
                                     <div class="col">
-                                        <button type="button" class="btn btn-success" id="btVerAct">Enviar</button>
+                                        <button type="button" class="btn btn-success" id="btSeeFailure" onclick="javascript: findVehicleFaults();">Buscar</button>
                                     </div>
                                 </div>
                             </form>
-                            <div class="alert alert-warning  " id="errorMessageActive" hidden="true">
-                                <strong id="MessageToShow1"></strong>
+                            <div class="form-row">
+                                <div class="col-md-12" style="margin: 10px; padding: 10px;">
+                                    <table class="display table table-hover table-sm compact" id="vehicle_faults_table" style="text-align: center;" width="100%" >
+
+                                    </table>
+                                </div>
                             </div>
-                            <div class="row col-md-12 " id="div_active_route" style=" margin: 12px; height: 500px; overflow: auto; "> 
+                            <div class="alert alert-warning  " id="errorMessageFailure" hidden="true">
+                                <strong id="MessageFailureError"></strong>
                             </div>
-                            <div class="row col-md-12 " id="map1" style=" margin: 12px; height: 500px; overflow: auto; "> 
-                            </div>
+
                         </div>
                     </div>
-                    
+
                     <%-- TENEMOS UNA TABLA PARA BUCAR UN USUARIO Y CAMBIARLE EL ROL EN LA BASE DE DATOS. --%>
                     <div class="tab-pane fade" id="v-pills-changing_roles" role="tabpanel" aria-labelledby="v-pills-changing_roles-tab">
 

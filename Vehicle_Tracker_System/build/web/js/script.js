@@ -1299,3 +1299,74 @@ function scroll_up(event) {
     var object = event.target;
     window.scrollTo(0, object.scrollTop + 1000);
 }
+
+function findVehicleFaults() {
+    var pk_plate = document.getElementById("inputVehicleFault").value;
+
+    if (pk_plate === "") {
+        console.log("vacio");
+        document.getElementById("MessageFailureError").innerHTML = "ingrese una placa ";
+        document.getElementById("errorMessageFailure").hidden = false;
+    } else {
+        console.log("no vacio");
+        
+        if ($.fn.dataTable.isDataTable('#vehicle_faults_table')) {
+            table = $('#vehicle_faults_table').DataTable();
+            table.destroy();
+        }
+        var url = "/Vehicle_Tracker_System/ConsultVehicleFaults?pk_plate=" + pk_plate;
+
+        var AJAX_req = new XMLHttpRequest();
+        AJAX_req.open("GET", url, true);
+        AJAX_req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        AJAX_req.onreadystatechange = function () {
+            if (AJAX_req.readyState === 4 && AJAX_req.status === 200) {
+                var server_answer = AJAX_req.responseText;
+                console.log("Busqueda de fallas terminada");
+                createTableVehiclesFaults(server_answer);
+            }
+        };
+        AJAX_req.send();
+    }
+}
+
+function createTableVehiclesFaults(textoJSON) {
+    var vehicle = JSON.parse(textoJSON);
+    $(document).ready(function () {
+        $('#vehicle_faults_table').DataTable({
+            language: {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+            data: vehicle.vehiclesJ,
+            columns: [
+                {title: "Fecha"},
+                {title: "Detalle del daño"},
+                {title: "Usuario"},
+                {title: "Vehiculo"},
+                {title: "Tipo de daño"},
+                {title: "Detalles"}
+            ]
+        });
+    });
+}

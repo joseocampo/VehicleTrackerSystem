@@ -1,4 +1,14 @@
 
+<%@page import="org.json.JSONException"%>
+<%@page import="javax.swing.JOptionPane"%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="org.json.JSONArray"%>
+<%@page import="org.json.JSONObject"%>
+<%@page import="java.io.PrintWriter"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="header.jsp" %>
 <!DOCTYPE html>
@@ -57,9 +67,35 @@
                                 </td>
                                 <td >
                                     <label style="font-size: 12pt;" id="user_in_session">
-                                        <% String user = (String) request.getSession(true).getAttribute("user");%>
-                                        <% out.print(user);%> 
-                                        <%--  &nbsp;&nbsp;&nbsp;Mauricio González--%>
+                                        <%
+                                            String user = (String) request.getSession(true).getAttribute("user");
+                                            String driver = "com.mysql.jdbc.Driver";
+                                            String conectionString = "jdbc:mysql://localhost/tracker_system_db";
+                                            String userB = "root";
+                                            String passwordB = "";
+
+                                            try {
+                                                Connection conn;
+                                                Class.forName(driver);
+                                                conn = DriverManager.getConnection(conectionString, userB, passwordB);
+
+                                                PreparedStatement stm
+                                                        = stm = conn.prepareCall("select Name, Surname, Second_surname from t_user_information usua where usua.PK_Id=?;");
+                                                stm.clearParameters();
+                                                stm.setString(1, user);
+
+                                                try (ResultSet rs = stm.executeQuery()) {
+                                                    if (rs.next()) {
+
+                                                        out.print(rs.getString("Name") + " " + rs.getString("Surname") + " " + rs.getString("Second_surname"));
+                                                    }
+                                                }
+                                                conn.close();
+                                            } catch (ClassNotFoundException | SQLException | JSONException e) {
+                                                JOptionPane.showMessageDialog(null, e.getMessage());
+                                            }
+                                        %>
+
                                     </label>
                                     <br />
                                     <label style="font-size: 10pt;"> &nbsp;&nbsp;<i class="fa fa-circle" style=" font-size: 10px; color: #00ff66;" aria-hidden="true"></i>&nbsp;Online</label>
@@ -88,7 +124,7 @@
                     <a style="" class=" nav_item_own nav-link " id="v-pills-show_users-tab" onclick="clear_screen_consult_users();" data-toggle="pill" href="#v-pills-show_users" role="tab" aria-controls="v-pills-show_users" aria-selected="true">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-user color_iconos_item" aria-hidden="true"></i>&nbsp;&nbsp;Consultar Usuarios</a>
                     <a class="nav_item_own nav-link" onclick="clear_screen_current_location()" id="v-pills-show_cars-tab" data-toggle="pill" href="#v-pills-show_cars" role="tab" aria-controls="v-pills-show_cars" aria-selected="false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-map-marker color_iconos_item" aria-hidden="true"></i>&nbsp;&nbsp;Ver Ubicación Actual</a>
                     <a class="nav_item_own nav-link" onclick="clear_screen_maps();" id="v-pills-car_routes-tab" data-toggle="pill" href="#v-pills-car_routes" role="tab" aria-controls="v-pills-car_routes" aria-selected="false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-map color_iconos_item" aria-hidden="true"></i>&nbsp;&nbsp;Rutas de un Vehículo</a>
-                    <a class="nav_item_own nav-link" onclick="clear_screen_active();" id="v-pills-show_cars_active-tab" data-toggle="pill" href="#v-pills-show_cars_active" role="tab" aria-controls="v-pills-show_cars_active" aria-selected="false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-check color_iconos_item" aria-hidden="true"></i>&nbsp;&nbsp;Mostrar Averías</a>
+                    <a class="nav_item_own nav-link" onclick="clear_screen_faults();" id="v-pills-show_cars_active-tab" data-toggle="pill" href="#v-pills-show_cars_active" role="tab" aria-controls="v-pills-show_cars_active" aria-selected="false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-check color_iconos_item" aria-hidden="true"></i>&nbsp;&nbsp;Mostrar Averías</a>
                     <%-- ROLES--%>
                     <a class="nav_title_fonts nav-link  disabled" style="color: white;"  data-toggle="pill" href="#" role="tab" aria-controls="" aria-selected="true"><i class="fa fa-cog " style="color: white; font-size: 25px; " aria-hidden="true"></i>&nbsp;&nbsp;Roles y Usuarios</a>
                     <a class="nav_item_own nav-link" id="v-pills-changing_roles-tab" onclick="clear_screen_roles_users();"  data-toggle="pill" href="#v-pills-changing_roles" role="tab" aria-controls="v-pills-changing_roles" aria-selected="false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa  fa-pencil-square-o  color_iconos_item" style="font-size: 12px;" aria-hidden="true"></i>&nbsp;&nbsp;Cambiar Roles</a>

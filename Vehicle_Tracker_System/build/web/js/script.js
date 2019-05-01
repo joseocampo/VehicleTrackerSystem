@@ -1370,3 +1370,9 @@ function createTableVehiclesFaults(textoJSON) {
         });
     });
 }
+
+function clear_screen_faults() {
+
+    document.getElementById("inputVehicleFault").value = "";
+   
+}

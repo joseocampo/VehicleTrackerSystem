@@ -449,16 +449,15 @@
                             <form onclick="clearAlertActive();">
                                 <div class="form-row">
                                     <div class="col">
-                                        <input id="inputVehicleFault" type='text' placeholder="Placa" class="form-control" name="inputIdentify"/>
+                                        <input id="inputVehicleFault" type='text' placeholder="Ingrese la placa del vehiculo." class="form-control" name="inputIdentify"/>
                                     </div>
-                                    <div class="col">
-                                        <select  class="custom-select" placeholder="Seleccione uno" size="1" required="required" id="plate_id_select_faults" name="plate_id_select" >
-                                            <option name="idVehicleFault">Placa</option>
-                                        </select>
-                                    </div>
+
                                     <div class="col">
                                         <button type="button" class="btn btn-success" id="btSeeFailure" onclick="javascript: findVehicleFaults();">Buscar</button>
                                     </div>
+                                </div>
+                                <div class="alert alert-warning  " id="errorMessageFailure" hidden="true">
+                                    <strong id="MessageFailureError"></strong>
                                 </div>
                             </form>
                             <div class="form-row">
@@ -468,9 +467,7 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="alert alert-warning  " id="errorMessageFailure" hidden="true">
-                                <strong id="MessageFailureError"></strong>
-                            </div>
+
 
                         </div>
                     </div>

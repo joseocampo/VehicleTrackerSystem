@@ -424,7 +424,7 @@
                                         <input type="text" class="form-control" required="required" onclick="hide_message_empty_field();" placeholder="Ingrese placa" id="pk_plate_current" name="pk_plate">
                                     </div>
                                     <div class="col">
-                                        <button class="btn btn-success"onclick="vehicle_current_location();"   id="btVerRutas1" type="button">Ver ubicación actual</button>
+                                        <button class="btn btn-success"onclick="vehicle_current_location();"   id="" type="button">Ver ubicación actual</button>
 
                                     </div>
                                 </div>
@@ -554,6 +554,7 @@
         </footer>
 
         <%-- ESTA LINEA CARGA EL API DE GOOGLE--%>
+           <%-- ESTA LINEA CARGA EL API DE GOOGLE--%>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeRi5ODuX2isXTxwhUoK9grlqiJJ2FGc8&callback=initializeAPIComponents"async defer></script>
 
     </body>

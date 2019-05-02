@@ -4,10 +4,12 @@ var current_position_markers = [];
 //=========================================================
 function initializeAPIComponents() {//CUANDO SE CARGA EL API, SE LLAMA ESTA FUNCION 
     //LA CUAL AGREGA UN EVENTO AL BOTON VER_RUTAS
-    document.getElementById('btVerRutas1').addEventListener('click', showAllRoutes);
+    document.getElementById('btVerRutas1').addEventListener("click", showAllRoutes,true);
+    console.log("api cargada");
 
 }
 function showAllRoutes() {
+    console.log("showAllRoutes");
     obtainRoutes();//ETSA FUNCION CREA LAS CARTAS
 //    initAllMaps();//ESTA FUNCION DIBUJA UN MAPA CON CADA RUTA EN CADA CARTA.
 }
@@ -131,7 +133,7 @@ function current_Location() {
     var lati = 0.0;
     var long = 0.0;
     var con = 0;
-    var date = new Date();
+    
 
     //usuario en la session
     var user_in_session = document.getElementById("user_in_session").innerText;
@@ -191,6 +193,7 @@ function current_Location() {
                     marker.setMap(map);
 
                     var url_google_maps = "https://maps.google.com/?q=" + lati + "," + long;
+                    var date = new Date();
 
                     var contentString = '<div id="content">' +
                             '<div id="siteNotice">' +

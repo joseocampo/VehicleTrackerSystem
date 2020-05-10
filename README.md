@@ -35,7 +35,7 @@ $ git clone https://github.com/joseocampo/Vehicle_Tracker_System_App.git
 
 
 ## Authors
-Didier José Ocampos Martínez.<br>
+Didier José Ocampos Martínez (Editing name to trigger Azure Function).<br>
 Anthony Ramírez lópez.<br>
 Moisés Moraga Alfaro.<br>
 Melissa Ureña Rojas.<br>

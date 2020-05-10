@@ -230,7 +230,7 @@ ALTER TABLE `t_incidents`
   ADD CONSTRAINT `fk_incidents_vehicle` FOREIGN KEY (`FK_Vehicle`) REFERENCES `t_vehicle` (`PK_License_plate`);
 
 --
--- Constraints for table `t_routes`
+-- Constraints for table `t_routes`  This is a simple commect just for testing a commit by gitub.
 --
 ALTER TABLE `t_routes`
   ADD CONSTRAINT `fk_routes_user` FOREIGN KEY (`FK_User`) REFERENCES `t_user_information` (`PK_Id`),
